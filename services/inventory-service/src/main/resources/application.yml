@@ -1,0 +1,45 @@
+spring:
+
+  application:
+    name: inventory-service-orch
+
+  datasource:
+    url: jdbc:postgresql://localhost:5439/inventorydb
+    username: inventoryuser
+    password: inventorypass
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.yml
+    enabled: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+
+    consumer:
+      group-id: inventory-service-orch-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+        enable.auto.commit: false
+
+    listener:
+      ack-mode: manual
+
+server:
+  port: 8083
+
+logging:
+  level:
+    az.tarkhangurbanli.inventory: DEBUG

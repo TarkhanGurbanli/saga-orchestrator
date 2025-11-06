@@ -1,0 +1,13 @@
+package az.tarkhangurbanli.saga.model.enums;
+
+public enum EventType {
+    ORDER_CREATED,
+    ORDER_CREATION_FAILED,
+    PAYMENT_PROCESSED,
+    PAYMENT_FAILED,
+    INVENTORY_RESERVED,
+    INVENTORY_FAILED,
+    ORDER_CANCELLED,
+    PAYMENT_REFUNDED,
+    INVENTORY_RELEASED
+}

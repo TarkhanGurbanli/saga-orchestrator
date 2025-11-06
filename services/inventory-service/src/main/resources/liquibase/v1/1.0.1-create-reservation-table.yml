@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.1-create-reservation-table
+      author: Tarkhan Gurbanli
+      changes:
+        - createTable:
+            tableName: reservations
+            columns:
+              - column:
+                  name: reservation_id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: saga_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: order_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: product_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: quantity
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: failure_reason
+                  type: VARCHAR(500)
+
+              - column:
+                  name: release_reason
+                  type: VARCHAR(500)
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: released_at
+                  type: TIMESTAMP
+
+              - column:
+                  name: version
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseTableName: reservations
+            baseColumnNames: product_id
+            referencedTableName: inventory
+            referencedColumnNames: product_id
+            constraintName: fk_reservation_inventory
+            onDelete: CASCADE
+            onUpdate: CASCADE

@@ -1,0 +1,62 @@
+spring:
+
+  application:
+    name: saga-orchestrator
+
+  datasource:
+    url: jdbc:postgresql://localhost:5436/orchestratordb
+    username: orchestratoruser
+    password: orchestratorpass
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  liquibase:
+    change-log: liquibase/changelog-master.yml
+    enabled: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      properties:
+        enable.idempotence: true
+
+    consumer:
+      group-id: saga-orchestrator-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+        spring.json.trusted.packages: "*"
+        enable.auto.commit: false
+
+    listener:
+      ack-mode: manual
+
+server:
+  port: 8080
+
+saga:
+  timeout:
+    seconds: 300
+  retry:
+    max-attempts: 3
+    delay-seconds: 5
+
+logging:
+  level:
+    com.saga.orchestrator: DEBUG
+    org.springframework.kafka: INFO

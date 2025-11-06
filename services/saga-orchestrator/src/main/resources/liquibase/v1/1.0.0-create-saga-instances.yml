@@ -1,0 +1,89 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.0-create-saga-instances
+      author: Tarkhan Gurbanli
+      changes:
+        - createTable:
+            tableName: saga_instances
+            columns:
+              - column:
+                  name: saga_id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: customer_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: order_id
+                  type: VARCHAR(36)
+
+              - column:
+                  name: product_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: quantity
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: amount
+                  type: NUMERIC(19,2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: payment_id
+                  type: VARCHAR(36)
+
+              - column:
+                  name: reservation_id
+                  type: VARCHAR(36)
+
+              - column:
+                  name: failure_reason
+                  type: VARCHAR(1000)
+
+              - column:
+                  name: retry_count
+                  type: INTEGER
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: completed_at
+                  type: TIMESTAMP
+
+              - column:
+                  name: version
+                  type: BIGINT
