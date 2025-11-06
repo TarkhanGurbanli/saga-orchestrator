@@ -187,34 +187,6 @@ curl http://localhost:8085/api/sagas/customer/{customerId}
 curl http://localhost:8085/api/sagas
 ```
 
-## 📁 Project Structure
-
-```
-saga-orchestration/
-├── docker-compose.yml
-├── saga-orchestrator/              ⭐ MAIN COORDINATOR
-│   ├── entity/
-│   │   ├── SagaInstance.java      # Saga state
-│   │   └── SagaStep.java          # Individual steps
-│   ├── enums/
-│   │   ├── SagaStatus.java        # STARTED, COMPLETED, FAILED, etc.
-│   │   ├── SagaStepType.java      # CREATE_ORDER, PROCESS_PAYMENT, etc.
-│   │   └── CommandType.java       # Command types
-│   ├── command/
-│   │   └── Commands.java          # All command types
-│   ├── event/
-│   │   └── Events.java            # All event types
-│   ├── service/
-│   │   ├── SagaOrchestrator.java  # ⭐ Core saga logic
-│   │   ├── CommandPublisher.java  # Sends commands
-│   │   └── SagaService.java       # Business layer
-│   └── listener/
-│       └── EventListener.java     # Listens to events
-├── order-service-orch/             # Command handler
-├── payment-service-orch/           # Command handler
-└── inventory-service-orch/         # Command handler
-```
-
 ## 🎯 Saga States
 
 ```java
